@@ -1,0 +1,1194 @@
+﻿Program.Sub.ScreenSU.Start
+Gui.Credit_Maint_Frm..Create(BaseForm)
+Gui.Credit_Maint_Frm..Caption("Credit Hold Password")
+Gui.Credit_Maint_Frm..Size(337,132)
+Gui.Credit_Maint_Frm..MinX(0)
+Gui.Credit_Maint_Frm..MinY(0)
+Gui.Credit_Maint_Frm..Position(0,0)
+Gui.Credit_Maint_Frm..AlwaysOnTop(False)
+Gui.Credit_Maint_Frm..FontName("Tahoma")
+Gui.Credit_Maint_Frm..FontSize(8.25)
+Gui.Credit_Maint_Frm..ControlBox(True)
+Gui.Credit_Maint_Frm..MaxButton(True)
+Gui.Credit_Maint_Frm..MinButton(True)
+Gui.Credit_Maint_Frm..MousePointer(0)
+Gui.Credit_Maint_Frm..Moveable(True)
+Gui.Credit_Maint_Frm..Sizeable(True)
+Gui.Credit_Maint_Frm..ShowInTaskBar(True)
+Gui.Credit_Maint_Frm..TitleBar(True)
+Gui.Credit_Maint_Frm..Event(UnLoad,Credit_Maint_Frm_UnLoad)
+Gui.Credit_Maint_Frm.lbl1.Create(Label,"Credit Hold Password",True,122,16,0,5,10,True,0,"Tahoma",7.8,,0,0)
+Gui.Credit_Maint_Frm.lbl1.BorderStyle(0)
+Gui.Credit_Maint_Frm.txt_credit_pass.Create(TextBox,"",True,324,22,0,5,33,True,0,"Tahoma",7.8,,1)
+Gui.Credit_Maint_Frm.txt_credit_pass.PasswordChar("*")
+Gui.Credit_Maint_Frm.cmd_pass_submit.Create(Button)
+Gui.Credit_Maint_Frm.cmd_pass_submit.Enabled(True)
+Gui.Credit_Maint_Frm.cmd_pass_submit.Visible(True)
+Gui.Credit_Maint_Frm.cmd_pass_submit.Zorder(0)
+Gui.Credit_Maint_Frm.cmd_pass_submit.Size(74,22)
+Gui.Credit_Maint_Frm.cmd_pass_submit.Position(7,61)
+Gui.Credit_Maint_Frm.cmd_pass_submit.Caption("Submit")
+Gui.Credit_Maint_Frm.cmd_pass_submit.FontName("Tahoma")
+Gui.Credit_Maint_Frm.cmd_pass_submit.FontSize(7.8)
+Gui.Credit_Maint_Frm.cmd_pass_submit.Event(Click,cmd_pass_submit_Click)
+Gui.Credit_Maint_Frm.cmd_reset.Create(Button)
+Gui.Credit_Maint_Frm.cmd_reset.Enabled(True)
+Gui.Credit_Maint_Frm.cmd_reset.Visible(True)
+Gui.Credit_Maint_Frm.cmd_reset.Zorder(0)
+Gui.Credit_Maint_Frm.cmd_reset.Size(74,22)
+Gui.Credit_Maint_Frm.cmd_reset.Position(88,61)
+Gui.Credit_Maint_Frm.cmd_reset.Caption("Reset")
+Gui.Credit_Maint_Frm.cmd_reset.FontName("Tahoma")
+Gui.Credit_Maint_Frm.cmd_reset.FontSize(7.8)
+Gui.Credit_Maint_Frm.cmd_reset.Event(Click,cmd_reset_Click)
+Gui.Pass_Reset..Create(BaseForm)
+Gui.Pass_Reset..Caption("Password Reset")
+Gui.Pass_Reset..Size(303,187)
+Gui.Pass_Reset..MinX(0)
+Gui.Pass_Reset..MinY(0)
+Gui.Pass_Reset..Position(0,0)
+Gui.Pass_Reset..AlwaysOnTop(False)
+Gui.Pass_Reset..FontName("Tahoma")
+Gui.Pass_Reset..FontSize(8.25)
+Gui.Pass_Reset..ControlBox(True)
+Gui.Pass_Reset..MaxButton(True)
+Gui.Pass_Reset..MinButton(True)
+Gui.Pass_Reset..MousePointer(0)
+Gui.Pass_Reset..Moveable(True)
+Gui.Pass_Reset..Sizeable(True)
+Gui.Pass_Reset..ShowInTaskBar(True)
+Gui.Pass_Reset..TitleBar(True)
+Gui.Pass_Reset..Event(UnLoad,Pass_Reset_UnLoad)
+Gui.Pass_Reset.lbl1.Create(Label,"Enter Old Password",True,112,16,0,5,9,True,0,"Tahoma",7.8,,0,0)
+Gui.Pass_Reset.lbl1.BorderStyle(0)
+Gui.Pass_Reset.txt_Old_Pass.Create(TextBox,"",True,283,22,0,3,31,True,0,"Tahoma",7.8,,1)
+Gui.Pass_Reset.txt_Old_Pass.PasswordChar("*")
+Gui.Pass_Reset.lbl2.Create(Label,"Enter New Password",True,118,16,0,5,61,True,0,"Tahoma",7.8,,0,0)
+Gui.Pass_Reset.lbl2.BorderStyle(0)
+Gui.Pass_Reset.txt_New_Pass.Create(TextBox,"",True,282,22,0,4,84,True,0,"Tahoma",7.8,,1)
+Gui.Pass_Reset.txt_New_Pass.PasswordChar("*")
+Gui.Pass_Reset.cmd_Change.Create(Button)
+Gui.Pass_Reset.cmd_Change.Enabled(True)
+Gui.Pass_Reset.cmd_Change.Visible(True)
+Gui.Pass_Reset.cmd_Change.Zorder(0)
+Gui.Pass_Reset.cmd_Change.Size(94,29)
+Gui.Pass_Reset.cmd_Change.Position(7,113)
+Gui.Pass_Reset.cmd_Change.Caption("Change")
+Gui.Pass_Reset.cmd_Change.FontName("Tahoma")
+Gui.Pass_Reset.cmd_Change.FontSize(7.8)
+Gui.Pass_Reset.cmd_Change.Event(Click,cmd_Change_Click)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+v.Global.sFileLocation.Declare
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+Function.Intrinsic.UI.UsePixels ' Allows you to use Pixels instead of Twips throughout
+
+F.Intrinsic.Control.Try
+	F.ODBC.Connection!con.OpenCompanyConnection()
+	f.Intrinsic.Control.CallSub(CreateDir)
+	
+	f.Intrinsic.Control.SelectCase(V.Caller.Hook)	
+		'Order header populate'
+		F.Intrinsic.Control.Case("11560")
+			F.Intrinsic.Control.CallSub(AddButton)
+			'Consolidated logic for ARC 6896
+			F.Intrinsic.Control.CallSub(AddButtonDIV)
+			'Consolidated logic for ARC 6996
+			F.Intrinsic.Control.CallSub(OrderEntryPopulateReports)
+			
+		'Quote Header Script 3'
+		F.Intrinsic.Control.Case("10980")
+			F.Intrinsic.Control.CallSub(QuoteHeaderScript)
+			
+		'Quote Header Pre Save'
+		F.Intrinsic.Control.Case("10922")
+			F.Intrinsic.Control.CallSub(QuoteHeaderPreSave)
+			
+		'Quote Header Order Change'
+		F.Intrinsic.Control.Case("10721")
+			F.Intrinsic.Control.CallSub(QuoteHeaderChange)	
+			
+		'Sales Order Header Script 3'
+		F.Intrinsic.Control.Case("11930")
+			F.Intrinsic.Control.CallSub(SalesOrderHeaderScript)
+			
+		'Sales Order Header Pre Save'
+		F.Intrinsic.Control.Case("11869")
+			F.Intrinsic.Control.CallSub(SalesOrderHeaderPreSave)
+			 
+		'Sales Order Header Order Change'
+		F.Intrinsic.Control.Case("11565")
+			F.Intrinsic.Control.CallSub(SalesOrderHeaderChange)
+			'Consolidated logic for ARC 6896
+			F.Intrinsic.Control.CallSub(LoadHeaderDIV)
+						
+		'BI Pre Hook'
+		F.Intrinsic.Control.Case("16090")
+			F.Intrinsic.Control.CallSub(BIPre)
+			
+		'Consolidated logic for ARC 6896 to increase speed issues
+		''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+		'Browser button click
+		F.Intrinsic.Control.Case("11950")
+			F.Intrinsic.Control.CallSub(ShowBrowser)
+			
+		'Save header
+		F.Intrinsic.Control.Case("11872")
+			F.Intrinsic.Control.CallSub(SaveHeader)
+			
+		'Freight Button
+		F.Intrinsic.Control.Case("11830")
+			F.Intrinsic.Control.CallSub(FreightButton)
+			
+		'Freight Populate
+		F.Intrinsic.Control.Case("36310")
+			F.Intrinsic.Control.CallSub(FreightPopulate)
+			
+		'Lines Prod Line Change
+		F.Intrinsic.Control.Case("12045")
+			F.Intrinsic.Control.CallSub(ProdLineChange)
+		''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+				 
+	f.Intrinsic.Control.EndSelect
+			
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.Main.End
+
+Program.Sub.AddButton.Start
+F.Intrinsic.Control.Try
+
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000203,"LOCK",0)
+	v.Passed.000203.Set("Release")
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.AddButton.End
+
+Program.Sub.AddButtonDIV.Start
+f.Intrinsic.Control.Try
+
+		'FOR LABEL
+	'Set horizontal position
+	f.Intrinsic.Variable.SetProperty("GAB-LBL-1","PL",600)
+	'Set vertical position
+	F.Intrinsic.Variable.SetProperty("GAB-LBL-1","PT",74)
+	f.Intrinsic.UI.ChangeCallerProperty(v.Passed.GAB-LBL-1,"HIDE",0)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-LBL-1,"LOCK",0)
+	f.Intrinsic.Variable.SetProperty("GAB-LBL-1","PW",65)
+	V.Passed.GAB-LBL-1.Set("Division Code")	
+
+	'FOR BTN
+	'Set horizontal position
+	f.Intrinsic.Variable.SetProperty("GAB-BTN-1","PL",650)
+	'Set vertical position
+	F.Intrinsic.Variable.SetProperty("GAB-BTN-1","PT",88)
+	f.Intrinsic.UI.ChangeCallerProperty(v.Passed.GAB-BTN-1,"HIDE",0)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-BTN-1,"LOCK",0)
+	f.Intrinsic.Variable.SetProperty("GAB-BTN-1","PW",20)
+	V.Passed.GAB-BTN-1.Set("^")
+	
+	'FOR TXT
+	'Set horizontal position
+	f.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PL",600)
+	'Set vertical position
+	F.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PT",90)
+	f.Intrinsic.UI.ChangeCallerProperty(v.Passed.GAB-TEXT-1,"HIDE",0)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.GAB-TEXT-1,"LOCK",1)
+	
+	f.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PW",40)
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.AddButtonDIV.End
+
+Program.Sub.OrderEntryPopulateReports.Start
+F.Intrinsic.Control.Try
+
+	v.Passed.000201.Set("Labor Parts")
+			
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.OrderEntryPopulateReports.End
+
+Program.Sub.QuoteHeaderScript.Start
+v.Local.sQuoteHookCheck.Declare
+v.Local.sQuoteHookRan.Declare
+F.Intrinsic.Control.Try
+	
+	f.Intrinsic.String.Build("{0}\CUSTOM\6921\QuoteHookCheck.txt",v.Caller.GlobalDir,v.Local.sQuoteHookCheck)					
+	f.Intrinsic.File.File2String(v.Local.sQuoteHookCheck,v.Local.sQuoteHookRan)
+	
+	'Mode was running twice for some reason. Set flag to check if it is running for the second time.
+	f.Intrinsic.Control.If(v.Local.sQuoteHookRan,=,"1")	
+		f.Intrinsic.File.String2File(v.Local.sQuoteHookCheck,"2")
+		gui.Credit_Maint_Frm..Show()
+	f.Intrinsic.Control.Else
+		f.Intrinsic.File.String2File(v.Local.sQuoteHookCheck,"1")
+	f.Intrinsic.Control.EndIf
+	
+	'gui.Credit_Maint_Frm..Show()
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.QuoteHeaderScript.End
+
+Program.Sub.QuoteHeaderPreSave.Start
+v.Local.sSQL.Declare
+v.Local.sSQL2.Declare
+v.Local.sSQL3.Declare
+v.Local.lSumOrdQuote.Declare
+v.Local.sQuoteHold.Declare
+v.Local.sQuoteNo.Declare
+v.Local.sQuoteHookCheck.Declare
+v.Local.sQuoteHookRan.Declare
+v.Local.sQuoteHookSecondCheck.Declare
+v.Local.sQuoteHookRanSecond.Declare
+v.Local.iRet.Declare
+v.Local.sSQL4.Declare
+F.Intrinsic.Control.Try
+
+	
+	
+	F.Intrinsic.String.LPad(V.Passed.000003,"0",7,v.Local.sQuoteNo)		
+	
+	'Pre save fires when lines is selected the first time. Add record if quote hasn't been added to custom table. If its there and locked, close sub, If its there and not locked, run presave logic.	
+	f.Intrinsic.String.Build("Select * from GCG_6921_CRDT_SURP Where QUOTE_ORDER = '{0}' and QUOTE_ORDER_CHAR = 'Q'",v.Local.sQuoteNo,v.Local.sSQL)
+	f.ODBC.Connection!con.OpenRecordsetRW("rst3",v.Local.sSQL)
+				
+	f.Intrinsic.Control.If(v.ODBC.con!rst3.EOF,=,false)
+		f.Intrinsic.Control.If(v.ODBC.con!rst3.FieldVal!LOCKED,=,"Y")
+			f.ODBC.Con!rst3.Close
+			f.Intrinsic.Control.ExitSub
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Con!rst3.Close
+	f.Intrinsic.Control.Else
+			'Add new records
+			F.ODBC.con!rst3.AddNew
+			F.ODBC.con!rst3.Set!QUOTE_ORDER(v.Local.sQuoteNo)
+			F.ODBC.con!rst3.Set!QUOTE_ORDER_CHAR("Q")		
+			F.ODBC.con!rst3.Set!TRANS_DATE(v.Ambient.Date.PSQLFriendly)
+			F.ODBC.con!rst3.Set!LOCKED("N")
+			F.ODBC.con!rst3.Set!GSS_USER(v.Caller.User)	
+			
+			f.ODBC.Con!rst3.Update
+			f.ODBC.Con!rst3.Close
+		
+			f.Intrinsic.Control.ExitSub
+					
+	f.Intrinsic.Control.EndIf
+
+				'f.Intrinsic.String.Build("Select SUM(A.AMT_OPEN_ITEM_BAL + A.AMT_OPEN_ORDERS + B.Extension) as Summed_Dollars from V_CUSTOMER_SALES A Left Join V_QUOTE_LINES B on A.Customer = B.Customer Where A.Customer = '{0}' And B.Quote_Won = null Or B.Quote_Won = ''",v.Passed.000006,v.Local.sSQL)
+				
+				f.Intrinsic.String.Build("Select SUM(A.AMT_OPEN_ITEM_BAL + A.AMT_OPEN_ORDERS) as Summed_Dollars from V_CUSTOMER_SALES A Where A.Customer = '{0}'",v.Passed.000006,v.Local.sSQL)
+				
+				f.Intrinsic.String.Build("Select SUM(B.Extension) as Summed_Dollars from V_QUOTE_LINES B Where B.Customer = '{0}' And B.Quote_Won = null and B.Quote_Won = ''",v.Passed.000006,v.Local.sSQL4)
+				
+				f.Intrinsic.String.Build("Select B.CREDIT_AMOUNT from V_CUSTOMER_MASTER A Left Join V_AR_CREDIT_LIMIT B on A.Credit = B.CREDIT_CODE Where A.Customer = '{0}'",v.Passed.000006,v.Local.sSQL2)
+				
+				f.ODBC.Connection!con.OpenRecordsetRW("rst",v.Local.sSQL)
+				f.ODBC.Connection!con.OpenRecordsetRW("rst2",v.Local.sSQL2)
+				f.ODBC.Connection!con.OpenRecordsetRW("rst4",v.Local.sSQL4)
+				
+				'If records were found
+				f.Intrinsic.Control.If(v.ODBC.con!rst.EOF,=,false)
+					f.Intrinsic.Math.Add(v.ODBC.con!rst4.FieldVal!Summed_Dollars,v.ODBC.con!rst.FieldVal!Summed_Dollars,v.Local.lSumOrdQuote)
+					f.Intrinsic.Math.Sub(v.ODBC.con!rst2.FieldVal!CREDIT_AMOUNT,v.ODBC.con!rst.FieldVal!Summed_Dollars,v.Local.lSumOrdQuote)
+				f.Intrinsic.Control.EndIf
+				
+				'Testing Purposes
+				'v.Local.lSumOrdQuote.Set(-1)
+				
+				
+				F.Intrinsic.String.LPad(V.Passed.000003,"0",7,v.Local.sQuoteNo)		
+					
+				'f.Intrinsic.String.Build("Select * from GCG_6921_CRDT_SURP Where QUOTE_ORDER = '{0}' and QUOTE_ORDER_CHAR = 'Q' and LOCKED = 'Y'",v.Local.sQuoteNo,v.Local.sSQL)
+				f.Intrinsic.String.Build("Select * from GCG_6921_CRDT_SURP Where QUOTE_ORDER = '{0}' and QUOTE_ORDER_CHAR = 'Q'",v.Local.sQuoteNo,v.Local.sSQL)
+				f.ODBC.Connection!con.OpenRecordsetRW("rst3",v.Local.sSQL)
+				
+				f.Intrinsic.Control.If(v.ODBC.con!rst3.EOF,=,false)
+					f.Intrinsic.Control.If(v.ODBC.con!rst3.FieldVal!UNLOCK_OVERRIDE,=,"Y")
+						f.ODBC.Con!rst3.Close
+						f.Intrinsic.Control.GoTo("Override")
+					f.Intrinsic.Control.EndIf
+				f.Intrinsic.Control.EndIf
+				f.ODBC.Con!rst3.Close
+			
+				f.Intrinsic.Control.If(v.Local.lSumOrdQuote,<=,0)
+					'Label In Process
+					F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000204,"LOCK",1)
+					'Label Submitted
+					F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000205,"LOCK",1)
+					'Label Approved
+					F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000206,"LOCK",1)
+					'Label Sent
+					F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000207,"LOCK",1)
+					
+					'Radio In Process
+					F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000050,"LOCK",1)
+					'Radio Submitted
+					F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000072,"LOCK",1)
+					'Radio Approved
+					F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000074,"LOCK",1)
+					'Radio Sent
+					F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000077,"LOCK",1)
+					v.Passed.000050.Set("O")
+							
+					F.Intrinsic.String.LPad(V.Passed.000003,"0",7,v.Local.sQuoteNo)
+						
+					f.Intrinsic.String.Build("Select * from GCG_6921_CRDT_SURP Where QUOTE_ORDER = '{0}' and QUOTE_ORDER_CHAR = 'Q'",v.Local.sQuoteNo,v.Local.sSQL3)
+					f.ODBC.Connection!con.OpenRecordsetRW("rst3",v.Local.sSQL3)
+					
+					f.Intrinsic.Control.If(V.ODBC.con!rst3.EOF,=,False)			
+						'Update Records
+						F.ODBC.con!rst3.Set!QUOTE_ORDER(v.Local.sQuoteNo)
+						F.ODBC.con!rst3.Set!QUOTE_ORDER_CHAR("Q")		
+						F.ODBC.con!rst3.Set!TRANS_DATE(v.Ambient.Date.PSQLFriendly)
+						F.ODBC.con!rst3.Set!LOCKED("Y")
+						F.ODBC.con!rst3.Set!GSS_USER(v.Caller.User)	
+					f.Intrinsic.Control.Else
+						'Add new records
+						F.ODBC.con!rst3.AddNew
+						F.ODBC.con!rst3.Set!QUOTE_ORDER(v.Local.sQuoteNo)
+						F.ODBC.con!rst3.Set!QUOTE_ORDER_CHAR("Q")		
+						F.ODBC.con!rst3.Set!TRANS_DATE(v.Ambient.Date.PSQLFriendly)
+						F.ODBC.con!rst3.Set!LOCKED("Y")
+						F.ODBC.con!rst3.Set!GSS_USER(v.Caller.User)	
+					f.Intrinsic.Control.EndIf
+					
+					f.ODBC.Con!rst3.Update
+					f.ODBC.Con!rst3.Close
+					
+					f.Intrinsic.UI.Msgbox("Quote has been put on hold due to credit limit or due to AR standing.","Credit Hold",0,v.Local.iRet)
+					
+				f.Intrinsic.Control.EndIf
+				
+				f.Intrinsic.Control.Label("Override")
+				f.ODBC.Con!rst.Close
+				f.ODBC.Con!rst2.Close
+				f.ODBC.Con!rst4.Close
+				
+			
+				f.Intrinsic.String.Build("{0}\CUSTOM\6921\QuoteHold.txt",v.Caller.GlobalDir,v.Local.sQuoteHold)					
+				f.Intrinsic.File.String2File(v.Local.sQuoteHold,v.Passed.000050)
+	
+	
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.QuoteHeaderPreSave.End
+
+Program.Sub.QuoteHeaderChange.Start
+v.Local.sSQL.Declare
+v.Local.sQuoteHold.Declare
+v.Local.sQuoteNo.Declare
+F.Intrinsic.Control.Try
+
+	F.Intrinsic.String.LPad(V.Passed.000003,"0",7,v.Local.sQuoteNo)		
+		
+	f.Intrinsic.String.Build("Select * from GCG_6921_CRDT_SURP Where QUOTE_ORDER = '{0}' and QUOTE_ORDER_CHAR = 'Q' and LOCKED = 'Y'",v.Local.sQuoteNo,v.Local.sSQL)
+	f.ODBC.Connection!con.OpenRecordsetRW("rst",v.Local.sSQL)
+	
+	f.Intrinsic.Control.If(V.ODBC.con!rst.EOF,=,False)	
+		f.Intrinsic.Control.If(v.ODBC.con!rst.FieldVal!UNLOCK_OVERRIDE,=,"Y")
+			f.Intrinsic.Control.GoTo("Override")
+		f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.EndIf
+		
+	f.Intrinsic.Control.If(V.ODBC.con!rst.EOF,=,False)	
+		'Label In Process
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000204,"LOCK",1)
+		'Label Submitted
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000205,"LOCK",1)
+		'Label Approved
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000206,"LOCK",1)
+		'Label Sent
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000207,"LOCK",1)
+		
+		'Radio In Process
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000050,"LOCK",1)
+		'Radio Submitted
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000072,"LOCK",1)
+		'Radio Approved
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000074,"LOCK",1)
+		'Radio Sent
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000077,"LOCK",1)
+		'Email Button
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000079,"LOCK",1)
+		'Print Sent
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000080,"LOCK",1)
+		v.Passed.000050.Set("O")
+
+	f.Intrinsic.Control.Else
+		'Label In Process
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000204,"LOCK",0)
+		'Label Submitted
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000205,"LOCK",0)
+		'Label Approved
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000206,"LOCK",0)
+		'Label Sent
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000207,"LOCK",0)
+		
+		'Radio In Process
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000050,"LOCK",0)
+		'Radio Submitted
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000072,"LOCK",0)
+		'Radio Approved
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000074,"LOCK",0)
+		'Radio Sent
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000077,"LOCK",0)
+		'Email Button
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000079,"LOCK",0)
+		'Print Sent
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000080,"LOCK",0)
+		v.Passed.000050.Set("O")
+
+	f.Intrinsic.Control.EndIf
+	
+	f.Intrinsic.Control.Label("Override")
+	f.ODBC.Con!rst.Close
+	f.Intrinsic.String.Build("{0}\CUSTOM\6921\QuoteHold.txt",v.Caller.GlobalDir,v.Local.sQuoteHold)					
+	f.Intrinsic.File.String2File(v.Local.sQuoteHold,v.Passed.000050)
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.QuoteHeaderChange.End
+
+Program.Sub.Credit_Maint_Frm_UnLoad.Start
+f.Intrinsic.Control.End
+Program.Sub.Credit_Maint_Frm_UnLoad.End
+
+Program.Sub.SalesOrderHeaderScript.Start
+F.Intrinsic.Control.Try
+
+	gui.Credit_Maint_Frm..Show()
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.SalesOrderHeaderScript.End
+
+Program.Sub.SalesOrderHeaderChange.Start
+v.Local.sSQL.Declare
+v.Local.sOrderNo.Declare
+v.Local.sShippingHold.Declare
+F.Intrinsic.Control.Try
+
+	F.Intrinsic.String.LPad(V.Passed.000003,"0",7,v.Local.sOrderNo)
+				
+	f.Intrinsic.String.Build("Select * from GCG_6921_CRDT_SURP Where QUOTE_ORDER = '{0}' and QUOTE_ORDER_CHAR = 'O' and LOCKED = 'Y'",v.Local.sOrderNo,v.Local.sSQL)
+	f.ODBC.Connection!con.OpenRecordsetRW("rst",v.Local.sSQL)
+
+	f.Intrinsic.Control.If(V.ODBC.con!rst.EOF,=,False)
+		f.Intrinsic.Control.If(v.ODBC.con!rst.FieldVal!UNLOCK_OVERRIDE,=,"Y")
+			f.Intrinsic.Control.GoTo("Override")
+		f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.EndIf
+	
+	f.Intrinsic.Control.If(V.ODBC.con!rst.EOF,=,False)	
+		'Label
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000154,"LOCK",1)
+		'Check box
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000096,"LOCK",1)
+		v.Passed.000096.Set("Y")
+		'Email Button
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000079,"LOCK",1)
+		'Print Button
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000085,"LOCK",1)
+		'Release Button
+		'F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000203,"LOCK",0)
+	f.Intrinsic.Control.Else
+		'Label
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000154,"LOCK",0)
+		'Check box
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000096,"LOCK",0)
+		v.Passed.000096.Set("N")
+		'Email Button
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000079,"LOCK",0)
+		'Print Button
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000085,"LOCK",0)
+		'Release Button
+		'F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000203,"LOCK",1)
+	f.Intrinsic.Control.EndIf
+	
+	f.Intrinsic.Control.Label("Override")
+	f.ODBC.Con!rst.Close
+
+'	'Add shipping hold value to custom file
+	f.Intrinsic.String.Build("{0}\CUSTOM\6921\ShippingHold.txt",v.Caller.GlobalDir,v.Local.sShippingHold)					
+	f.Intrinsic.File.String2File(v.Local.sShippingHold,v.Passed.000096)
+
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.SalesOrderHeaderChange.End
+
+Program.Sub.SalesOrderHeaderPreSave.Start
+v.Local.sSQL.Declare
+v.Local.sSQL2.Declare
+v.Local.sSQL3.Declare
+v.Local.sSQL4.Declare
+v.Local.lSumOrdQuote.Declare
+v.Local.sShippingHold.Declare
+v.Local.sOrderNo.Declare
+v.Local.iRet.Declare
+F.Intrinsic.Control.Try
+
+	f.Intrinsic.Control.If(v.Passed.GAB-TEXT-1,=,"")
+		'No division code found so set ovveride
+		v.Passed.777777.Set(Y)
+		f.Intrinsic.UI.Msgbox("Please choose a Division code before saving.")
+		f.Intrinsic.Control.GoTo("Skip")
+	f.Intrinsic.Control.EndIf
+
+
+		'Label
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000154,"HIDE",0)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000154,"LOCK",0)
+	'Check box
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000096,"HIDE",0)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000096,"LOCK",0)
+	
+	'f.Intrinsic.String.Build("Select AMT_OPEN_ITEM_BAL, AMT_OPEN_ORDERS from V_CUSTOMER_SALES where CUSTOMER = '{0}'",v.Passed.000006,v.Local.sSQL)
+	
+	f.Intrinsic.String.Build("Select SUM(A.AMT_OPEN_ITEM_BAL + A.AMT_OPEN_ORDERS) as Summed_Dollars from V_CUSTOMER_SALES A Where A.Customer = '{0}'",v.Passed.000006,v.Local.sSQL)
+	
+	f.Intrinsic.String.Build("Select SUM(B.Extension) as Summed_Dollars from V_QUOTE_LINES B Where B.Customer = '{0}' And B.Quote_Won = null and B.Quote_Won = ''",v.Passed.000006,v.Local.sSQL4)
+	
+	'f.Intrinsic.String.Build("select ORDER_NO,RECORD_NO,EXTENSION from V_ORDER_LINES where ORDER_NO = '{0}'",v.Passed.000003,v.Local.sSQL2)
+	
+	f.Intrinsic.String.Build("Select B.CREDIT_AMOUNT from V_CUSTOMER_MASTER A Left Join V_AR_CREDIT_LIMIT B on A.Credit = B.CREDIT_CODE Where A.Customer = '{0}'",v.Passed.000006,v.Local.sSQL2)
+	
+	f.ODBC.Connection!con.OpenRecordsetRW("rst",v.Local.sSQL)
+	f.ODBC.Connection!con.OpenRecordsetRW("rst2",v.Local.sSQL2)
+	f.ODBC.Connection!con.OpenRecordsetRW("rst4",v.Local.sSQL4)
+	
+	'If records were found
+	f.Intrinsic.Control.If(v.ODBC.con!rst.EOF,=,false)
+		
+		f.Intrinsic.Math.Add(v.ODBC.con!rst4.FieldVal!Summed_Dollars,v.ODBC.con!rst.FieldVal!Summed_Dollars,v.Local.lSumOrdQuote)
+		'If summed dollars is more than credit limit then return number will be negative
+		f.Intrinsic.Math.Sub(v.ODBC.con!rst2.FieldVal!CREDIT_AMOUNT,v.Local.lSumOrdQuote,v.Local.lSumOrdQuote)
+	f.Intrinsic.Control.EndIf
+
+	'Testing purposes
+	'v.Local.lSumOrdQuote.Set(-1)
+	
+	F.Intrinsic.String.LPad(V.Passed.000003,"0",7,v.Local.sOrderNo)
+				
+	f.Intrinsic.String.Build("Select * from GCG_6921_CRDT_SURP Where QUOTE_ORDER = '{0}' and QUOTE_ORDER_CHAR = 'O'",v.Local.sOrderNo,v.Local.sSQL)
+	f.ODBC.Connection!con.OpenRecordsetRW("rst3",v.Local.sSQL)
+	
+	f.Intrinsic.Control.If(V.ODBC.con!rst3.EOF,=,False)
+		f.Intrinsic.Control.If(v.ODBC.con!rst3.FieldVal!UNLOCK_OVERRIDE,=,"Y")
+			f.ODBC.Con!rst3.Close
+			f.Intrinsic.Control.GoTo("Override")
+		f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.EndIf
+	f.ODBC.Con!rst3.Close
+	
+	f.Intrinsic.Control.If(v.Local.lSumOrdQuote,<=,0)
+		'Label
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000154,"LOCK",1)
+		'Check box
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000096,"LOCK",1)
+		v.Passed.000096.Set("Y")
+		'Email Button
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000079,"LOCK",1)
+		'Print Button
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000085,"LOCK",1)
+		
+		F.Intrinsic.String.LPad(V.Passed.000003,"0",7,v.Local.sOrderNo)	
+		f.Intrinsic.String.Build("Select * from GCG_6921_CRDT_SURP Where QUOTE_ORDER = '{0}' and QUOTE_ORDER_CHAR = 'O'",v.Local.sOrderNo,v.Local.sSQL3)
+		f.ODBC.Connection!con.OpenRecordsetRW("rst3",v.Local.sSQL3)
+		
+		f.Intrinsic.Control.If(V.ODBC.con!rst3.EOF,=,False)			
+			'Update Records
+			F.ODBC.con!rst3.Set!QUOTE_ORDER(v.Local.sOrderNo)
+			F.ODBC.con!rst3.Set!QUOTE_ORDER_CHAR("O")		
+			F.ODBC.con!rst3.Set!TRANS_DATE(v.Ambient.Date.PSQLFriendly)
+			F.ODBC.con!rst3.Set!LOCKED("Y")
+			F.ODBC.con!rst3.Set!GSS_USER(v.Caller.User)	
+		f.Intrinsic.Control.Else
+			'Add new records
+			F.ODBC.con!rst3.AddNew
+			F.ODBC.con!rst3.Set!QUOTE_ORDER(v.Local.sOrderNo)
+			F.ODBC.con!rst3.Set!QUOTE_ORDER_CHAR("O")		
+			F.ODBC.con!rst3.Set!TRANS_DATE(v.Ambient.Date.PSQLFriendly)
+			F.ODBC.con!rst3.Set!LOCKED("Y")
+			F.ODBC.con!rst3.Set!GSS_USER(v.Caller.User)	
+		f.Intrinsic.Control.EndIf
+		
+		f.ODBC.Con!rst3.Update
+		f.ODBC.Con!rst3.Close
+		
+		f.Intrinsic.UI.Msgbox("Sales Order has been put on hold due to credit limit or due to AR standing.","Credit Hold",0,v.Local.iRet)
+				
+	f.Intrinsic.Control.EndIf
+	
+	f.Intrinsic.Control.Label("Override")
+	f.ODBC.Con!rst.Close
+	f.ODBC.Con!rst2.Close
+	f.ODBC.Con!rst4.Close
+	
+	f.Intrinsic.String.Build("{0}\CUSTOM\6921\ShippingHold.txt",v.Caller.GlobalDir,v.Local.sShippingHold)					
+	f.Intrinsic.File.String2File(v.Local.sShippingHold,v.Passed.000096)
+	
+	f.Intrinsic.Control.Label("Skip")
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.SalesOrderHeaderPreSave.End
+
+Program.Sub.LoadHeaderDIV.Start
+v.Local.sRet.Declare
+v.Local.sPadOrderNo.Declare
+v.Local.sSQL.Declare
+v.Local.sCustomPath.Declare
+f.Intrinsic.Control.Try
+
+	F.Intrinsic.String.LPad(V.Passed.000003,"0",7,v.Local.sPadOrderNo)
+	
+	f.Intrinsic.String.Build("Select * from GCG_6896_ORDER_DIV where ORDER_NO = '{0}'",v.Local.sPadOrderNo,v.Local.sSQL)
+
+	f.ODBC.Connection!con.OpenRecordsetRW("rst",v.Local.sSQL)
+	
+	'If Division found fill text box, don't if no division found
+	f.Intrinsic.Control.If(v.ODBC.con!rst.EOF,=,false)
+		v.Passed.GAB-TEXT-1.Set(v.ODBC.con!rst.FieldVal!DIVISION)			
+		f.Intrinsic.String.Build("Select GL_ACC_START from GCG_6896_DIV_GL where DIVISION_CODE = '{0}'",v.ODBC.con!rst.FieldVal!DIVISION,v.Local.sSQL)
+		f.ODBC.Connection!con.OpenRecordsetRW("rst2",v.Local.sSQL)
+	
+		f.Intrinsic.String.Build("{0}\CUSTOM\DIV.txt",v.Caller.GlobalDir,v.Local.sCustomPath)		
+		f.Intrinsic.String.Build("{0}*!*{1}*!*{2}",v.ODBC.con!rst.FieldVal!DIVISION,v.Local.sPadOrderNo,v.ODBC.con!rst2.FieldVal!GL_ACC_START,v.Local.sRet)
+		
+		f.Intrinsic.File.String2File(v.Local.sCustomPath,v.Local.sRet)
+		f.ODBC.con!rst2.Close()
+	f.Intrinsic.Control.Else
+		v.Passed.GAB-TEXT-1.Set("")
+		f.Intrinsic.String.Build("{0}\CUSTOM\DIV.txt",v.Caller.GlobalDir,v.Local.sCustomPath)		
+		f.Intrinsic.String.Build("{0}*!*{1}*!*{2}"," ",v.Local.sPadOrderNo," ",v.Local.sRet)
+		f.Intrinsic.File.String2File(v.Local.sCustomPath,v.Local.sRet)
+	f.Intrinsic.Control.EndIf
+	
+	f.ODBC.con!rst.Close()
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+
+Program.Sub.LoadHeaderDIV.End
+
+Program.Sub.cmd_reset_Click.Start
+v.Local.sPass.Declare
+F.Intrinsic.Control.Try
+
+	gui.Pass_Reset..Show()
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.cmd_reset_Click.End
+
+Program.Sub.cmd_Change_Click.Start
+v.Local.sPass.Declare
+v.Local.iRet.Declare
+F.Intrinsic.Control.Try
+	
+	'f.Global.Registry.ReadValue(v.Caller.User,v.Caller.CompanyCode,"CreditHold",6921,0,5,"",v.Local.sPass)
+	f.Global.Registry.ReadValue(75,v.Caller.CompanyCode,"CreditHold",6921,0,5,"",v.Local.sPass)
+	
+	f.Intrinsic.Control.If(v.Local.sPass,=,v.Screen.Pass_Reset!txt_Old_Pass.Text)
+		'f.Global.Registry.AddValue(v.Caller.User,v.Caller.CompanyCode,"CreditHold",6921,0,true,v.Screen.Pass_Reset!txt_New_Pass.Text,true,0,0,v.Ambient.Date,v.Ambient.Time)
+		f.Global.Registry.AddValue(75,v.Caller.CompanyCode,"CreditHold",6921,0,true,v.Screen.Pass_Reset!txt_New_Pass.Text,true,0,0,v.Ambient.Date,v.Ambient.Time)
+		f.Intrinsic.UI.Msgbox("Password successfully changed.","Password Change",0,v.Local.iRet)
+		gui.Pass_Reset..Visible(false)
+	f.Intrinsic.Control.Else
+		f.Intrinsic.UI.Msgbox("Incorrect Password. Please try again.","Password Change",0,v.Local.iRet)
+	f.Intrinsic.Control.EndIf
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.cmd_Change_Click.End
+
+Program.Sub.cmd_pass_submit_Click.Start
+v.Local.sPass.Declare
+v.Local.sQuoteOrderNo.Declare
+v.Local.sSQL.Declare
+v.Local.iRet.Declare
+v.Local.sShippingHold.Declare
+F.Intrinsic.Control.Try
+	
+	'f.Global.Registry.ReadValue(v.Caller.User,v.Caller.CompanyCode,"CreditHold",6921,0,5,"",v.Local.sPass)
+	f.Global.Registry.ReadValue(75,v.Caller.CompanyCode,"CreditHold",6921,0,5,"",v.Local.sPass)
+	
+	F.Intrinsic.String.LPad(V.Passed.000003,"0",7,v.Local.sQuoteOrderNo)			
+	
+	'Password is correct so unlock shipping hold and unmark it
+	f.Intrinsic.Control.If(v.Local.sPass,=,v.Screen.Credit_Maint_Frm!txt_credit_pass.Text)
+		'Sales Order Header
+		f.Intrinsic.Control.If(v.Caller.Hook,=,"11930")	
+			'Label
+			F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000154,"LOCK",0)
+			'Check box
+			F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000096,"LOCK",0)
+			v.Passed.000096.Set("N")
+			'Email Button
+			F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000079,"LOCK",0)
+			'Print Button
+			F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000085,"LOCK",0)
+			'Search for locked Quote and unlock it
+			f.Intrinsic.String.Build("Select * from GCG_6921_CRDT_SURP Where QUOTE_ORDER = '{0}' and QUOTE_ORDER_CHAR = 'O'",v.Local.sQuoteOrderNo,v.Local.sSQL)
+			f.ODBC.Connection!con.OpenRecordsetRW("rst",v.Local.sSQL)
+			'If record found unlock it
+			f.Intrinsic.Control.If(V.ODBC.con!rst.EOF,=,False)			
+				'Update Records
+				F.ODBC.con!rst.Set!QUOTE_ORDER(v.Local.sQuoteOrderNo)
+				F.ODBC.con!rst.Set!QUOTE_ORDER_CHAR("O")		
+				F.ODBC.con!rst.Set!TRANS_DATE(v.Ambient.Date.PSQLFriendly)
+				F.ODBC.con!rst.Set!LOCKED("N")
+				F.ODBC.con!rst.Set!GSS_USER(v.Caller.User)
+				F.ODBC.con!rst.Set!UNLOCK_OVERRIDE("Y")
+				f.ODBC.Con!rst.Update
+			f.Intrinsic.Control.EndIf					
+			f.ODBC.Con!rst.Close
+			f.Intrinsic.UI.Msgbox("Sales Order has been unlocked.","Credit Hold",0,v.Local.iRet)
+			
+			f.Intrinsic.String.Build("{0}\CUSTOM\6921\ShippingHold.txt",v.Caller.GlobalDir,v.Local.sShippingHold)					
+			f.Intrinsic.File.String2File(v.Local.sShippingHold,"N")
+			
+			'Update ORDER_HEADER
+			f.Intrinsic.String.Build("Select * from ORDER_HEADER Where ORDER_NO = '{0}'",v.Local.sQuoteOrderNo,v.Local.sSQL)
+			f.ODBC.Connection!con.OpenRecordsetRW("rst",v.Local.sSQL)
+			
+			F.ODBC.con!rst.Set!SHP_HLD_FLAG(0)
+			f.ODBC.Con!rst.Update
+			f.ODBC.Con!rst.Close
+			
+			gui.Credit_Maint_Frm..Visible(false)
+		'Quote Header
+		f.Intrinsic.Control.Else
+			'Label In Process
+			F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000204,"LOCK",0)
+			'Label Submitted
+			F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000205,"LOCK",0)
+			'Label Approved
+			F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000206,"LOCK",0)
+			'Label Sent
+			F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000207,"LOCK",0)
+			
+			'Radio In Process
+			F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000050,"LOCK",0)
+			'Radio Submitted
+			F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000072,"LOCK",0)
+			'Radio Approved
+			F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000074,"LOCK",0)
+			'Radio Sent
+			F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000077,"LOCK",0)
+			v.Passed.000050.Set("O")
+			
+			'Search for locked Quote and unlock it
+			f.Intrinsic.String.Build("Select * from GCG_6921_CRDT_SURP Where QUOTE_ORDER = '{0}' and QUOTE_ORDER_CHAR = 'Q'",v.Local.sQuoteOrderNo,v.Local.sSQL)
+			f.ODBC.Connection!con.OpenRecordsetRW("rst",v.Local.sSQL)
+			'If record found unlock
+			f.Intrinsic.Control.If(V.ODBC.con!rst.EOF,=,False)			
+				'Update Records
+				F.ODBC.con!rst.Set!QUOTE_ORDER(v.Local.sQuoteOrderNo)
+				F.ODBC.con!rst.Set!QUOTE_ORDER_CHAR("Q")		
+				F.ODBC.con!rst.Set!TRANS_DATE(v.Ambient.Date.PSQLFriendly)
+				F.ODBC.con!rst.Set!LOCKED("N")
+				F.ODBC.con!rst.Set!GSS_USER(v.Caller.User)
+				F.ODBC.con!rst.Set!UNLOCK_OVERRIDE("Y")
+				f.ODBC.Con!rst.Update
+			f.Intrinsic.Control.EndIf				
+			f.ODBC.Con!rst.Close
+			f.Intrinsic.UI.Msgbox("Quote has been unlocked.","Credit Hold",0,v.Local.iRet)
+			
+			f.Intrinsic.String.Build("{0}\CUSTOM\6921\ShippingHold.txt",v.Caller.GlobalDir,v.Local.sShippingHold)					
+			f.Intrinsic.File.String2File(v.Local.sShippingHold,"N")
+			
+			gui.Credit_Maint_Frm..Visible(false)
+		f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.Else
+		f.Intrinsic.UI.Msgbox("Incorrect Password. Please try again.","Password Change",0,v.Local.iRet)
+	f.Intrinsic.Control.EndIf
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.cmd_pass_submit_Click.End
+
+Program.Sub.Pass_Reset_UnLoad.Start
+Program.Sub.Pass_Reset_UnLoad.End
+
+Program.Sub.BIPre.Start
+v.Local.sCustomPath.Declare
+v.Local.sShippingHold.Declare
+v.Local.iRet.Declare
+v.Local.bRet.Declare
+F.Intrinsic.Control.Try
+	
+	
+	f.Intrinsic.String.IsInString(v.Caller.ScriptFile,"GCG_6921_Credit_Hold.g2u",true,v.Local.bRet)
+	
+	f.Intrinsic.Control.If(v.Local.bRet,=,false)
+		f.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.EndIf
+
+	f.Intrinsic.String.Build("{0}\CUSTOM\6921\ShippingHold.txt",v.Caller.GlobalDir,v.Local.sCustomPath)
+	f.Intrinsic.File.File2String(v.Local.sCustomPath,v.Local.sShippingHold)
+
+	f.Intrinsic.Control.If(v.Local.sShippingHold,=,"Y")
+		v.Passed.CANCEL.Set(1)
+		f.Intrinsic.UI.Msgbox("Order Acknowledgment can't be printed if Shipping Hold is selected.","Credit Hold",0,v.Local.iRet)
+	f.Intrinsic.Control.Else
+		v.Passed.CANCEL.Set(0)		
+	f.Intrinsic.Control.EndIf
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.BIPre.End
+
+Program.Sub.CreateDir.Start
+V.Local.bRet.Declare(Boolean,False)
+f.Intrinsic.Control.Try
+
+	'Creating custom directory in Global file path if its not there
+	F.Intrinsic.Control.If(V.Caller.GlobalDir.Right1,=,"\")
+		F.Intrinsic.String.Build("{0}Custom\",V.Caller.GlobalDir,V.Global.sFileLocation)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Build("{0}\Custom\",V.Caller.GlobalDir,V.Global.sFileLocation)
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.File.DirExists(V.Global.sFileLocation,V.Local.bRet)
+	
+	F.Intrinsic.Control.If(V.Local.bRet,=,False)
+		F.Intrinsic.File.CreateDir(V.Global.sFileLocation)
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.String.Build("{0}6921\",V.Global.sFileLocation,V.Global.sFileLocation)
+	
+	F.Intrinsic.File.DirExists(V.Global.sFileLocation,V.Local.bRet)
+	
+	F.Intrinsic.Control.If(V.Local.bRet,=,False)
+		F.Intrinsic.File.CreateDir(V.Global.sFileLocation)
+	F.Intrinsic.Control.EndIf
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.CreateDir.End
+
+Program.Sub.ShowBrowser.Start
+v.Local.sRet.Declare
+v.Local.sTemp.Declare
+v.Local.sTitles.Declare
+v.Local.iWidths.Declare
+v.Local.sPadOrderNo.Declare
+v.Local.sCustomPath.Declare
+v.Local.sSQL.Declare
+f.Intrinsic.Control.Try
+
+	Function.Intrinsic.String.Split("Division Code*!*Description*!*GL Account Start","*!*",variable.local.sTitles)
+	Function.Intrinsic.String.Split("1000*!*800*!*800","*!*",variable.local.iWidths)
+	Function.Intrinsic.UI.Browser("Select a Division","con","Select * from GCG_6896_DIV_GL order by GL_ACC_START",Variable.Local.sTitles,Variable.Local.iWidths,Variable.Local.sRet)
+
+	
+	f.Intrinsic.Control.If(v.Local.sRet,<>,"***CANCEL***")
+		f.Intrinsic.String.Split(Variable.Local.sRet,"*!*",v.Local.sRet)
+		v.Passed.GAB-TEXT-1.Set(v.Local.sRet(0))
+		
+		f.Intrinsic.String.Build("Select GL_ACC_START from GCG_6896_DIV_GL where DIVISION_CODE = '{0}'",v.Passed.GAB-TEXT-1,v.Local.sSQL)
+		f.ODBC.Connection!con.OpenRecordsetRW("rst",v.Local.sSQL)
+	
+		f.Intrinsic.Control.If(v.ODBC.con!rst.EOF,=,false)
+			F.Intrinsic.String.LPad(V.Passed.000003,"0",7,v.Local.sPadOrderNo)
+			f.Intrinsic.String.Build("{0}\CUSTOM\DIV.txt",v.Caller.GlobalDir,v.Local.sCustomPath)		
+			f.Intrinsic.String.Build("{0}*!*{1}*!*{2}",v.Passed.GAB-TEXT-1,v.Local.sPadOrderNo,v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sRet)		
+			f.Intrinsic.File.String2File(v.Local.sCustomPath,v.Local.sRet)
+		f.Intrinsic.Control.EndIf
+		
+		f.ODBC.Con!rst.Close
+		
+	f.Intrinsic.Control.EndIf
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.ShowBrowser.End
+
+Program.Sub.SaveHeader.Start
+v.Local.sRet.Declare
+v.Local.sPadOrderNo.Declare
+v.Local.sSQL.Declare
+v.Local.iRet.Declare
+v.Local.sCustomPath.Declare
+f.Intrinsic.Control.Try
+	
+	F.Intrinsic.String.LPad(V.Passed.000003,"0",7,v.Local.sPadOrderNo)
+	
+	f.Intrinsic.String.Build("Select * from GCG_6896_ORDER_DIV where ORDER_NO = '{0}'",v.Local.sPadOrderNo,v.Local.sSQL)
+	
+	f.ODBC.Connection!con.OpenRecordsetRW("rst",v.Local.sSQL)
+	
+	f.Intrinsic.String.Build("Select * from GCG_6896_DIV_GL where DIVISION_CODE = '{0}'",V.Passed.GAB-TEXT-1,v.Local.sSQL)
+	f.ODBC.Connection!con.OpenRecordsetRW("rst2",v.Local.sSQL)
+	
+	f.Intrinsic.Control.If(v.ODBC.con!rst2.EOF,=,true)
+		f.Intrinsic.UI.Msgbox("Division Code not found. Please Enter existing Division Code","",0,v.Local.iRet)
+		f.ODBC.con!rst2.Close()		
+				
+		F.Intrinsic.String.LPad(V.Passed.000003,"0",7,v.Local.sPadOrderNo)
+		f.Intrinsic.String.Build("{0}\CUSTOM\DIV.txt",v.Caller.GlobalDir,v.Local.sCustomPath)		
+		f.Intrinsic.String.Build("{0}*!*{1}*!*{2}",v.Passed.GAB-TEXT-1,v.Local.sPadOrderNo,"",v.Local.sRet)		
+		f.Intrinsic.File.String2File(v.Local.sCustomPath,v.Local.sRet)
+				
+		f.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.EndIf
+	
+	'Add new record if records doesn't exist. Alter record if order_no already has a record.
+	f.Intrinsic.Control.If(v.ODBC.con!rst.EOF,=,true)
+		F.ODBC.con!rst.AddNew
+		f.ODBC.con!rst.Set!ORDER_NO(v.Local.sPadOrderNo)
+		f.ODBC.con!rst.Set!DIVISION(V.Passed.GAB-TEXT-1)
+		F.ODBC.con!rst.Update	
+	f.Intrinsic.Control.Else
+		f.ODBC.con!rst.Set!ORDER_NO(v.Local.sPadOrderNo)
+		f.ODBC.con!rst.Set!DIVISION(V.Passed.GAB-TEXT-1)
+		F.ODBC.con!rst.Update		
+	f.Intrinsic.Control.EndIf
+	
+	f.ODBC.con!rst.Close()
+	f.ODBC.con!rst2.Close()
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.SaveHeader.End
+
+Program.Sub.FreightButton.Start
+v.Local.sCustomPath.Declare
+v.Local.sRet.Declare
+v.Local.sPadOrderNo.Declare
+v.Local.sSQL.Declare
+v.Local.iRet.Declare
+v.Local.sGLAccount.Declare
+f.Intrinsic.Control.Try
+	
+	f.Intrinsic.String.Build("Select GL_ACC_START from GCG_6896_DIV_GL where DIVISION_CODE = '{0}'",v.Passed.GAB-TEXT-1,v.Local.sSQL)
+	f.ODBC.Connection!con.OpenRecordsetRW("rst",v.Local.sSQL)
+	
+	f.Intrinsic.Control.If(v.ODBC.con!rst.EOF,=,false)
+		F.Intrinsic.String.LPad(V.Passed.000003,"0",7,v.Local.sPadOrderNo)
+		'f.Intrinsic.String.Build("{0}-504-000",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+		f.Intrinsic.String.Build("{0}\CUSTOM\DIV.txt",v.Caller.GlobalDir,v.Local.sCustomPath)		
+		f.Intrinsic.String.Build("{0}*!*{1}*!*{2}",v.Passed.GAB-TEXT-1,v.Local.sPadOrderNo,v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sRet)		
+		f.Intrinsic.File.String2File(v.Local.sCustomPath,v.Local.sRet)
+	f.Intrinsic.Control.EndIf
+	
+	f.ODBC.con!rst.Close()
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.FreightButton.End
+
+Program.Sub.FreightPopulate.Start
+v.Local.sSQL.Declare
+v.Local.sDivCode.Declare
+v.Local.sCustomPath.Declare
+v.Local.sGLAccount.Declare
+f.Intrinsic.Control.Try
+
+	f.Intrinsic.String.Build("{0}\CUSTOM\DIV.txt",v.Caller.GlobalDir,v.Local.sCustomPath)
+	f.Intrinsic.File.File2String(v.Local.sCustomPath,v.Local.sDivCode)
+	f.Intrinsic.String.Split(v.Local.sDivCode,"*!*",v.Local.sDivCode)
+	
+	f.Intrinsic.String.Build("Select GL_ACC_START from GCG_6896_DIV_GL where DIVISION_CODE = '{0}'",v.Local.sDivCode(0),v.Local.sSQL)
+		
+	f.ODBC.Connection!con.OpenRecordsetRW("rst",v.Local.sSQL)
+	'f.Intrinsic.String.Build("{0}-504-000",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+	f.Intrinsic.String.Build("{0}",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+	f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+	
+	f.Intrinsic.Control.If(v.ODBC.con!rst.EOF,=,false)
+		v.Passed.000003.Set(v.Local.sGLAccount)		
+	f.Intrinsic.Control.Else
+		v.Passed.000003.Set("")
+	f.Intrinsic.Control.EndIf
+	
+	'Lock text box and hide browser
+	f.Intrinsic.UI.ChangeCallerProperty(v.Passed.000003,"LOCK",1)
+	F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000004,"HIDE",1)
+	
+	f.ODBC.con!rst.Close()
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.FreightPopulate.End
+
+Program.Sub.ProdLineChange.Start
+v.Local.sSQL.Declare
+v.Local.sSQL2.Declare
+v.Local.sDivCode.Declare
+v.Local.sCustomPath.Declare
+v.Local.sGLAccount.Declare
+f.Intrinsic.Control.Try
+
+	f.Intrinsic.String.Build("{0}\CUSTOM\DIV.txt",v.Caller.GlobalDir,v.Local.sCustomPath)
+	f.Intrinsic.File.File2String(v.Local.sCustomPath,v.Local.sDivCode)
+	f.Intrinsic.String.Split(v.Local.sDivCode,"*!*",v.Local.sDivCode)
+	
+	f.Intrinsic.String.Build("Select GL_ACC_START from GCG_6896_DIV_GL where DIVISION_CODE = '{0}'",v.Local.sDivCode(0),v.Local.sSQL)	
+	f.ODBC.Connection!con.OpenRecordsetRW("rst",v.Local.sSQL)		
+
+	f.Intrinsic.Control.If(v.ODBC.con!rst.EOF,<>,true)
+	
+		f.Intrinsic.Control.SelectCase(v.Passed.000013)	
+			
+			F.Intrinsic.Control.Case("BM")
+				f.Intrinsic.String.Build("{0}-501-002",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("BR")
+				f.Intrinsic.String.Build("{0}-501-001",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("CC")
+			f.Intrinsic.String.Build("{0}-501-001",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("CH")
+			f.Intrinsic.String.Build("{0}-501-002",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("CM")
+			f.Intrinsic.String.Build("{0}-501-002",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("CR")
+			f.Intrinsic.String.Build("{0}-501-001",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("HM")
+			f.Intrinsic.String.Build("{0}-501-002",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("HR")
+			f.Intrinsic.String.Build("{0}-501-001",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("LB")
+			f.Intrinsic.String.Build("{0}-501-005",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("LF")
+			f.Intrinsic.String.Build("{0}-501-005",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("LW")
+			f.Intrinsic.String.Build("{0}-501-005",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("OM")
+			f.Intrinsic.String.Build("{0}-501-002",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("OR")
+			f.Intrinsic.String.Build("{0}-501-001",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("PM")
+			f.Intrinsic.String.Build("{0}-501-002",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("PR")
+			f.Intrinsic.String.Build("{0}-501-001",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("SM")
+			f.Intrinsic.String.Build("{0}-501-002",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("SR")
+			f.Intrinsic.String.Build("{0}-501-003",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("TM")
+			f.Intrinsic.String.Build("{0}-501-002",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("WM")
+			f.Intrinsic.String.Build("{0}-501-002",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("WR")
+			f.Intrinsic.String.Build("{0}-501-001",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+			F.Intrinsic.Control.Case("ZZ")
+			f.Intrinsic.String.Build("{0}-501-002",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+				f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+				v.Passed.000018.Set(v.Local.sGLAccount)
+			
+		f.Intrinsic.Control.EndIf
+		
+		f.ODBC.con!rst.Close
+	
+		'Testing Purposes	
+'		F.Intrinsic.Control.Case("FG")
+'		f.Intrinsic.String.Build("{0}-501-002",v.ODBC.con!rst.FieldVal!GL_ACC_START,v.Local.sGLAccount)
+'			f.Intrinsic.String.Replace(v.Local.sGLAccount," ","",v.Local.sGLAccount)
+'			v.Passed.000018.Set(v.Local.sGLAccount)
+						
+	f.Intrinsic.Control.EndSelect
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.ProdLineChange.End
+
+Program.Sub.ErrorMsg.Start
+v.Local.sError.Declare
+f.Intrinsic.String.Build("Project GCG_6924_Credit_Hold.g2u {0}{0}Subroutine: {1}{0}Error: {2} with Description: {3}", v.Ambient.NewLine, v.Args.CurrentSub, v.Ambient.ErrorNumber, v.Ambient.ErrorDescription, v.Local.sError)
+f.Intrinsic.UI.Msgbox(v.Local.sError)
+f.ODBC.Connection!con.Close
+f.Intrinsic.Control.End
+Program.Sub.ErrorMsg.End
+
+Program.Sub.Comments.Start
+${$5$}$3.0.0.0$}$1
+${$6$}$ghuff$}$20230217100935147$}$s89N93NTeas40rhsU1ZwRZbXtveiSQfbioXd3Fd4UBFKmEDH6bG/ON5r0Z8k2kYEUU+PXnEpTYU=
+Program.Sub.Comments.End
